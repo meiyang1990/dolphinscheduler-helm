@@ -1,0 +1,171 @@
+# 基于 apache/dolphinscheduler-worker:3.4.1 镜像，包含所有插件任务类型
+# 构建命令（任意目录执行）:
+#   docker build -f Dockerfile.worker-with-plugins \
+#     -t ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler/dolphinscheduler-worker-with-plugin:3.4.1 .
+#
+# 推送命令:
+#   docker push ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler/dolphinscheduler-worker-with-plugin:3.4.1
+
+# ============================================================
+# Stage 1: 使用 Maven 下载所有插件
+# ============================================================
+FROM maven:3.9.9-eclipse-temurin-8 AS plugin-downloader
+
+WORKDIR /build
+
+# 直接在 Dockerfile 中声明所有需要下载的插件（无需外部文件依赖）
+# 使用 mvn dependency:copy + outputDirectory 替代 dependency:get dest（避免 dest 目录不兼容问题）
+RUN set -ex; \
+    echo "======================================"; \
+    echo "   DolphinScheduler 3.4.1 全量插件下载"; \
+    echo "======================================"; \
+    \
+    VERSION="3.4.1"; \
+    GROUP_ID="org.apache.dolphinscheduler"; \
+    SUCCESS=0; FAIL=0; \
+    \
+    download_plugin() { \
+      local dir="$1"; \
+      local artifact="$2"; \
+      local outdir="/build/${dir}"; \
+      mkdir -p "${outdir}"; \
+      printf "  [下载] %-55s -> %s/" "${artifact}" "${dir}"; \
+      if mvn -q -B dependency:copy \
+            -Dartifact="${GROUP_ID}:${artifact}:${VERSION}:jar:shade" \
+            -DoutputDirectory="${outdir}" \
+            -Dmdep.useBaseVersion=true 2>/dev/null; then \
+        local jar_file="${outdir}/${artifact}-${VERSION}-shade.jar"; \
+        if [ -f "${jar_file}" ]; then \
+          echo "  [OK] $(ls -lh ${jar_file} | awk '{print $5}')"; \
+          SUCCESS=$((SUCCESS + 1)); \
+        else \
+          echo "  [WARN] JAR 文件未生成"; \
+          FAIL=$((FAIL + 1)); \
+        fi; \
+      else \
+        echo "  [SKIP] 该插件无 shade 版本或下载失败"; \
+        FAIL=$((FAIL + 1)); \
+      fi; \
+    }; \
+    \
+    echo ""; \
+    echo "--- [告警插件] alert-plugins ---"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-aliyunVoice"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-dingtalk"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-email"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-feishu"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-http"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-pagerduty"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-prometheus"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-script"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-slack"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-telegram"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-webexteams"; \
+    download_plugin "plugins/alert-plugins" "dolphinscheduler-alert-wechat"; \
+    \
+    echo ""; \
+    echo "--- [数据源插件] datasource-plugins ---"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-aliyunserverlessspark"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-athena"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-azure-sql"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-clickhouse"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-dameng"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-databend"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-db2"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-dolphindb"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-doris"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-hana"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-hive"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-k8s"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-kyuubi"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-mysql"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-oceanbase"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-oracle"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-postgresql"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-presto"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-redshift"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-sagemaker"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-snowflake"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-spark"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-sqlserver"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-ssh"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-starrocks"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-trino"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-vertica"; \
+    download_plugin "plugins/datasource-plugins" "dolphinscheduler-datasource-zeppelin"; \
+    \
+    echo ""; \
+    echo "--- [存储插件] storage-plugins ---"; \
+    download_plugin "plugins/storage-plugins" "dolphinscheduler-storage-abs"; \
+    download_plugin "plugins/storage-plugins" "dolphinscheduler-storage-gcs"; \
+    download_plugin "plugins/storage-plugins" "dolphinscheduler-storage-hdfs"; \
+    download_plugin "plugins/storage-plugins" "dolphinscheduler-storage-obs"; \
+    download_plugin "plugins/storage-plugins" "dolphinscheduler-storage-oss"; \
+    download_plugin "plugins/storage-plugins" "dolphinscheduler-storage-s3"; \
+    \
+    echo ""; \
+    echo "--- [任务插件] task-plugins ---"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-aliyunserverlessspark"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-chunjun"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-datafactory"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-datasync"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-datax"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-dinky"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-dms"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-dvc"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-emr"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-flink"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-flink-stream"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-grpc"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-hivecli"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-http"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-java"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-jupyter"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-k8s"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-kubeflow"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-linkis"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-mlflow"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-mr"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-openmldb"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-procedure"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-python"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-remoteshell"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-sagemaker"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-seatunnel"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-shell"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-spark"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-sql"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-sqoop"; \
+    download_plugin "plugins/task-plugins" "dolphinscheduler-task-zeppelin"; \
+    \
+    echo ""; \
+    echo "======================================"; \
+    echo "  插件下载完成！"; \
+    echo "  成功: ${SUCCESS} / 跳过: ${FAIL}"; \
+    echo "======================================"; \
+    find /build/plugins -name "*.jar" | sort | while read jar; do \
+      printf "  %-55s %s\n" "$(basename "$jar")" "$(ls -lh "$jar" | awk '{print $5}')"; \
+    done; \
+    echo ""; \
+    echo "  总计: $(find /build/plugins -name '*.jar' | wc -l) 个插件 JAR 包"
+
+# ============================================================
+# Stage 2: 最终 Worker 镜像
+# ============================================================
+FROM apache/dolphinscheduler-worker:3.4.1
+
+USER root
+
+# 从 Stage 1 拷贝所有插件到 DolphinScheduler 插件目录
+COPY --from=plugin-downloader /build/plugins/ /opt/dolphinscheduler/plugins/
+
+# 修复文件权限（使用数字 UID:GID，因基础镜像中可能无 dolphinscheduler 用户名）
+RUN chown -R 1000:1000 /opt/dolphinscheduler/plugins/
+
+# 验证插件是否安装成功
+RUN echo "=== 已安装插件列表 ===" && \
+    find /opt/dolphinscheduler/plugins -name "*.jar" | sort | while read jar; do \
+      printf "  %-55s %s\n" "$(basename "$jar")" "$(ls -lh "$jar" | awk '{print $5}')"; \
+    done && \
+    echo "" && \
+    echo "Total: $(find /opt/dolphinscheduler/plugins -name '*.jar' | wc -l) plugins"

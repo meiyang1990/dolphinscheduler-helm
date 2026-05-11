@@ -1,0 +1,30 @@
+apiVersion: v2
+appVersion: 3.4.1
+dependencies:
+- condition: postgresql.enabled
+  name: postgresql
+  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  version: 10.3.18
+- condition: zookeeper.enabled
+  name: zookeeper
+  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  version: 11.4.11
+- condition: mysql.enabled
+  name: mysql
+  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  version: 9.4.1
+- condition: minio.enabled
+  name: minio
+  repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+  version: 11.10.13
+description: Dolphin Scheduler is a distributed and easy-to-expand visual DAG workflow
+  scheduling system, dedicated to solving the complex dependencies in data processing,
+  making the scheduling system out of the box for data processing.
+home: https://dolphinscheduler.apache.org
+icon: https://dolphinscheduler.apache.org/img/hlogo_colorful.svg
+keywords:
+- dolphinscheduler
+- scheduler
+name: dolphinscheduler-helm
+type: application
+version: 3.4.1

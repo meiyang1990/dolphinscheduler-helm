@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: dolphinscheduler-cfs-pv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany   # 关键：多Pod同时读写
+  nfs:
+    server: cfs-AuyfsEHuFq.lb-5zxcesgq.cfs.bj.baidubce.com  # 替换为你的CFS地址
+    path: /                            # CFS导出路径
+  persistentVolumeReclaimPolicy: Retain

@@ -1,0 +1,22 @@
+# 基于 DolphinScheduler 官方镜像构建包含 MySQL 驱动的镜像
+# 用法:
+#   docker build --build-arg BASE_IMAGE=apache/dolphinscheduler-master:3.4.1 -t dolphinscheduler-master:3.4.1-mysql .
+#   docker build --build-arg BASE_IMAGE=apache/dolphinscheduler-worker:3.4.1 -t dolphinscheduler-worker:3.4.1-mysql .
+#   docker build --build-arg BASE_IMAGE=apache/dolphinscheduler-api:3.4.1 -t dolphinscheduler-api:3.4.1-mysql .
+#   docker build --build-arg BASE_IMAGE=apache/dolphinscheduler-alert-server:3.4.1 -t dolphinscheduler-alert-server:3.4.1-mysql .
+#   docker build --build-arg BASE_IMAGE=apache/dolphinscheduler-tools:3.4.1 -t dolphinscheduler-tools:3.4.1-mysql .
+
+ARG BASE_IMAGE=apache/dolphinscheduler-master:3.4.1
+FROM ${BASE_IMAGE}
+
+# MySQL Connector/J 版本，可按需修改
+ARG MYSQL_CONNECTOR_VERSION=8.0.33
+
+# 下载 MySQL JDBC 驱动到 libs 目录
+ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar /opt/dolphinscheduler/libs/
+
+# 确保文件权限正确
+USER root
+RUN chmod 644 /opt/dolphinscheduler/libs/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar && \
+    chown 1000:1000 /opt/dolphinscheduler/libs/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar
+USER dolphinscheduler
