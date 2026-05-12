@@ -41,7 +41,7 @@ image:
   # -- master image
   master: dolphinscheduler-master-with-plugin
   # -- worker image
-  worker: dolphinscheduler-worker-with-plugin
+  worker: dolphinscheduler-worker-with-plugin-py3
   # -- api-server image
   api: dolphinscheduler-api-with-plugin
   # -- alert-server image
@@ -111,7 +111,7 @@ mysql:
 
 minio:
   # -- Deploy minio and configure it as the default storage for DolphinScheduler, note this is for demo only, not for production.
-  enabled: true
+  enabled: false
   auth:
     # -- minio username
     rootUser: minioadmin
@@ -384,7 +384,7 @@ conf:
     support.hive.oneSession: false
 
     # -- use sudo or not, if set true, executing user is tenant user and deploy user needs sudo permissions; if set false, executing user is the deploy user and doesn't need sudo permissions
-    sudo.enable: true
+    sudo.enable: false
 
     # -- development state
     development.state: false
@@ -428,7 +428,7 @@ common:
     # -- Set `SPARK_HOME` for DolphinScheduler's task environment
     SPARK_HOME: "/opt/soft/spark"
     # -- Set `PYTHON_LAUNCHER` for DolphinScheduler's task environment
-    PYTHON_LAUNCHER: "/usr/bin/python/bin/python3"
+    PYTHON_LAUNCHER: "/usr/local/bin/python3.11"
     # -- Set `JAVA_HOME` for DolphinScheduler's task environment
     JAVA_HOME: "/opt/java/openjdk"
     # -- Set `HIVE_HOME` for DolphinScheduler's task environment

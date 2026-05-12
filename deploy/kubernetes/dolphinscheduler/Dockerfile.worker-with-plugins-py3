@@ -1,0 +1,61 @@
+# 基于 dolphinscheduler-worker-with-plugin:3.4.1 镜像，追加 Python 3.11.15
+# 前置条件：需要先构建并推送 dolphinscheduler-worker-with-plugin:3.4.1
+#
+# 构建命令:
+#   docker build -f Dockerfile.worker-with-plugins-py3 \
+#     -t ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler/dolphinscheduler-worker-with-plugin-py3:3.4.1 .
+#
+# 推送命令:
+#   docker push ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler/dolphinscheduler-worker-with-plugin-py3:3.4.1
+
+FROM ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler/dolphinscheduler-worker-with-plugin:3.4.1
+
+USER root
+
+# 安装 Python 3.11.15 编译依赖
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      wget \
+      build-essential \
+      libssl-dev \
+      zlib1g-dev \
+      libbz2-dev \
+      libreadline-dev \
+      libsqlite3-dev \
+      libncursesw5-dev \
+      xz-utils \
+      tk-dev \
+      libxml2-dev \
+      libxmlsec1-dev \
+      libffi-dev \
+      liblzma-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# 从源码编译安装 Python 3.11.15
+RUN set -ex; \
+    PYTHON_VERSION="3.11.15"; \
+    wget -q "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz"; \
+    tar -xzf "Python-${PYTHON_VERSION}.tgz"; \
+    cd "Python-${PYTHON_VERSION}"; \
+    ./configure --enable-optimizations --prefix=/usr/local; \
+    make -j"$(nproc)"; \
+    make altinstall; \
+    cd /; \
+    rm -rf "Python-${PYTHON_VERSION}" "Python-${PYTHON_VERSION}.tgz"; \
+    \
+    echo ""; \
+    echo "=== Python 版本确认 ==="; \
+    /usr/local/bin/python3.11 --version
+
+# 创建软链接，方便统一使用
+RUN ln -sf /usr/local/bin/python3.11 /usr/local/bin/python3 && \
+    ln -sf /usr/local/bin/pip3.11 /usr/local/bin/pip3
+
+# 设置 PyPI 镜像源（可选，加速国内 pip install）
+# RUN pip3.11 config set global.index-url https://mirrors.baidu.com/pypi/simple
+
+# Python 启动器环境变量（与 YAML 中 PYTHON_LAUNCHER 保持一致）
+ENV PYTHON_LAUNCHER=/usr/local/bin/python3.11
+
+USER 1000
