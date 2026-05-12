@@ -88,7 +88,7 @@ minio:
 externalDatabase:
   enabled: true
   type: "postgresql"
-  host: "postgresql14.rdsg5x3azbioroo.rds.bj.baidubce.com"
+  host: "192.168.48.2"
   port: "5432"
   username: "dolphin_user"
   password: "u3P3s#uRcD5h@"

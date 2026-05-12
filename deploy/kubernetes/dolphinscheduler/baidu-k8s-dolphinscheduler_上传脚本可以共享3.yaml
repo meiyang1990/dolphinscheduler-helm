@@ -142,7 +142,7 @@ externalDatabase:
   # -- The type of external database, supported types: postgresql, mysql
   type: "postgresql"
   # -- The host of external database
-  host: "postgresql14.rdsg5x3azbioroo.rds.bj.baidubce.com"
+  host: "192.168.48.2"
   # -- The port of external database
   port: "5432"
   # -- The username of external database
