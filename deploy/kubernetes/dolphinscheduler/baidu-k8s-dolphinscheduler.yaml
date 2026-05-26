@@ -366,13 +366,13 @@ conf:
     resource.manager.httpaddress.port: 8088
 
     # -- if resourcemanager HA is enabled, please set the HA IPs; if resourcemanager is single, keep this value empty
-    yarn.resourcemanager.ha.rm.ids: 192.168.xx.xx,192.168.xx.xx
+    yarn.resourcemanager.ha.rm.ids: master-03ff3a1-1,master-03ff3a1-2,master-03ff3a1-3
 
-    # -- if resourcemanager HA is enabled or not use resourcemanager, please keep the default value; If resourcemanager is single, you only need to replace ds1 to actual resourcemanager hostname
-    yarn.application.status.address: http://ds1:%s/ws/v1/cluster/apps/%s
+    # -- if resourcemanager HA is enabled, yarn.application.status.address use rm1 hostname; If resourcemanager is single, use actual hostname
+    yarn.application.status.address: http://master-03ff3a1-1:%s/ws/v1/cluster/apps/%s
 
     # -- job history status url when application number threshold is reached(default 10000, maybe it was set to 1000)
-    yarn.job.history.status.address: http://ds1:19888/ws/v1/history/mapreduce/jobs/%s
+    yarn.job.history.status.address: http://master-03ff3a1-3:19888/ws/v1/history/mapreduce/jobs/%s
 
     # -- datasource encryption enable
     datasource.encryption.enable: false
@@ -406,6 +406,13 @@ conf:
 
     # -- way to collect applicationId: log, aop
     appId.collect: log
+
+# -- YARN cluster configuration for submitting Spark tasks to BMR on CCE cluster
+yarnClusterConf:
+  # -- Enable or disable the YARN cluster configuration mount
+  enabled: true
+  # -- The HADOOP_CONF_DIR path inside the container where YARN config files will be mounted
+  hadoopConfDir: "/opt/soft/hadoop/etc/hadoop"
 
 common:
   ## Configmap
@@ -463,7 +470,7 @@ common:
     # -- Resource persistent volume storage class, must support the access mode: `ReadWriteMany`
     storageClassName: "-"
     # -- `PersistentVolumeClaim` size
-    storage: "20Gi"
+    storage: "50Gi"
 
 master:
   # -- Enable or disable the Master component
@@ -1024,7 +1031,7 @@ api:
     storage: "20Gi"
   service:
     # -- type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer
-    type: "ClusterIP"
+    type: "LoadBalancer"
     # --  clusterIP is the IP address of the service and is usually assigned randomly by the master
     clusterIP: ""
     # -- nodePort is the port on each node on which this api service is exposed when type=NodePort
@@ -1036,10 +1043,11 @@ api:
     # -- externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service, requires Type to be ExternalName
     externalName: ""
     # -- loadBalancerIP when service.type is LoadBalancer. LoadBalancer will get created with the IP specified in this field
-    loadBalancerIP: ""
+    loadBalancerIP: "180.76.52.98"
     # -- annotations may need to be set when service.type is LoadBalancer
     # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:EXAMPLE_CERT
-    annotations: {}
+    annotations:
+      service.beta.kubernetes.io/cce-load-balancer-eip-address: "180.76.52.98"
     # -- serviceMonitor for prometheus operator
     serviceMonitor:
       # -- Enable or disable api-server serviceMonitor

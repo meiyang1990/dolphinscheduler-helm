@@ -33,10 +33,13 @@ spec:
     metadata:
       labels:
         {{- include "dolphinscheduler.master.labels" . | nindent 8 }}
-      {{- if or .Values.master.annotations .Values.conf.auto  }}
+      {{- if or .Values.master.annotations .Values.conf.auto .Values.yarnClusterConf.enabled }}
       annotations:
         {{- if .Values.conf.auto }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.yarnClusterConf.enabled }}
+        checksum/yarn-cluster-config: {{ include (print $.Template.BasePath "/configmap-dolphinscheduler-yarn-cluster.yaml") . | sha256sum }}
         {{- end }}
         {{- if .Values.master.annotations }}
         {{- toYaml .Values.master.annotations | nindent 8 }}
@@ -168,6 +171,7 @@ spec:
               mountPath: /opt/dolphinscheduler/conf/common.properties
               subPath: common.properties
             {{- include "dolphinscheduler.etcd.ssl.volumeMount" . | nindent 12 }}
+            {{- include "dolphinscheduler.yarnClusterConf.volumeMount" . | nindent 12 }}
       volumes:
         - name: {{ include "dolphinscheduler.fullname" . }}-master
           {{- if .Values.master.persistentVolumeClaim.enabled }}
@@ -186,6 +190,7 @@ spec:
           configMap:
             name: {{ include "dolphinscheduler.fullname" . }}-configs
         {{- include "dolphinscheduler.etcd.ssl.volume" . | nindent 8 }}
+        {{- include "dolphinscheduler.yarnClusterConf.volume" . | nindent 8 }}
   {{- if .Values.master.persistentVolumeClaim.enabled }}
   volumeClaimTemplates:
     - metadata:

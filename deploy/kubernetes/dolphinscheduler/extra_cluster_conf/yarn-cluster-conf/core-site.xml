@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<configuration>
+    <property>
+      <name>bos.use.proxy.user.enabled</name>
+      <value>true</value>
+    </property>
+
+    <property>
+      <name>fs.bos.work.scenarios</name>
+      <value>bmr</value>
+    </property>
+
+    <property>
+      <name>fs.bos.credentials.provider.class</name>
+      <value>org.apache.hadoop.fs.bos.credentials.StsServerCredentialsProvider</value>
+    </property>
+
+    <property>
+      <name>hadoop.http.staticuser.user</name>
+      <value>yarn</value>
+    </property>
+
+    <property>
+      <name>fs.bos.impl</name>
+      <value>org.apache.hadoop.fs.bos.BaiduBosFileSystem</value>
+    </property>
+    
+    <property>
+      <name>ha.zookeeper.quorum</name>
+      <value>master-03ff3a1-1:2181,master-03ff3a1-2:2181,master-03ff3a1-3:2181</value>
+    </property>
+    
+    <property>
+        <name>fs.defaultFS</name>
+        <value>bos://lakehouse/</value>
+    </property>
+    
+    
+    <property>
+      <name>hadoop.security.authentication</name>
+      <value>simple</value>
+    </property>
+
+    <property>
+      <name>hadoop.security.authorization</name>
+      <value>false</value>
+    </property>
+    
+    <!-- config proxyuser related -->
+    <property>
+      <name>hadoop.proxyuser.hue.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.hue.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.iceberg.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.iceberg.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.hdfs.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.hdfs.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.flink.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.flink.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.mapred.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.mapred.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.hive.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.hive.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.zookeeper.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.zookeeper.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.prometheus.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.prometheus.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.hdfs.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.hdfs.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.yarn.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.yarn.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.paimon.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.paimon.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.tez.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.tez.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.spark.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.spark.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+      <name>hadoop.proxyuser.sts.hosts</name>
+      <value>*</value>
+    </property>
+
+    <property>
+      <name>hadoop.proxyuser.sts.groups</name>
+      <value>*</value>
+    </property>
+    
+    <property>
+        <name>fs.trash.interval</name>
+        <value>360</value>
+    </property>
+    
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>yarn</value>
+    </property>
+    
+    <property>
+        <name>hadoop.http.filter.initializers</name>
+        <value>org.apache.hadoop.http.lib.StaticUserWebFilter</value>
+    </property>
+    
+    <property>
+        <name>io.compression.codecs</name>
+        <value>org.apache.hadoop.io.compress.GzipCodec,
+                org.apache.hadoop.io.compress.DefaultCodec,
+                org.apache.hadoop.io.compress.SnappyCodec,
+                com.hadoop.compression.lzo.LzoCodec,
+                com.hadoop.compression.lzo.LzopCodec,
+                org.apache.hadoop.io.compress.BZip2Codec</value>
+    </property>
+    
+    <property>
+        <name>fs.bos.endpoint</name>
+        <value>http://bj.bcebos.com</value>
+    </property>
+    
+    <property>
+        <name>hadoop.http.cross-origin.allowed-headers</name>
+        <value>X-Requested-With,Content-Type,Accept,Origin,WWW-Authenticate,Accept-Encoding,Transfer-Encoding</value>
+    </property>
+    
+    <property>
+        <name>hadoop.http.authentication.simple.anonymous.allowed</name>
+        <value>True</value>
+    </property>
+    
+    <property>
+        <name>fs.AbstractFileSystem.bos.impl</name>
+        <value>org.apache.hadoop.fs.bos.BaiduBosFileSystemAdapter</value>
+    </property>
+    
+    <property>
+        <name>hadoop.security.instrumentation.requires.admin</name>
+        <value>False</value>
+    </property>
+    
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>131072</value>
+    </property>
+    
+    <property>
+        <name>hadoop.http.cross-origin.allowed-origins</name>
+        <value>*</value>
+    </property>
+    
+    <property>
+        <name>fs.AbstractFileSystem.file.impl</name>
+        <value>org.apache.hadoop.fs.local.LocalFs</value>
+    </property>
+    
+    <property>
+        <name>hadoop.http.cross-origin.allowed-methods</name>
+        <value>GET,PUT,POST,OPTIONS,HEAD,DELETE</value>
+    </property>
+    
+    <property>
+        <name>rapidfs.data.cache.dir</name>
+        <value>/mnt/bmr/rapidfs/client/cache</value>
+    </property>
+    
+    <property>
+        <name>fs.rapidfs.impl</name>
+        <value>com.baidu.bce.bmr.rapidfs.RapidFileSystemImpl</value>
+    </property>
+    
+    <property>
+        <name>rapidfs.debug.mode</name>
+        <value>false</value>
+    </property>
+    
+    <property>
+        <name>rapidfs.log.path</name>
+        <value>/mnt/bmr/rapidfs/client/log</value>
+    </property>
+    
+    <property>
+        <name>rapidfs.data.cache.size</name>
+        <value>50000000000</value>
+    </property>
+    
+    <property>
+        <name>rapidfs.master.address</name>
+        <value>localhost:7110</value>
+    </property>
+    <property>
+        <name>ipc.client.rpc-timeout.ms</name>
+        <value>120000</value>
+    </property>
+     
+</configuration>

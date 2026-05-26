@@ -396,6 +396,27 @@ Create a ldap ssl volumeMount.
 {{- end -}}
 
 {{/*
+Create a yarn cluster conf volume.
+*/}}
+{{- define "dolphinscheduler.yarnClusterConf.volume" -}}
+{{- if .Values.yarnClusterConf.enabled }}
+- name: {{ include "dolphinscheduler.fullname" . }}-yarn-cluster-conf
+  configMap:
+    name: {{ include "dolphinscheduler.fullname" . }}-yarn-cluster-conf
+{{- end }}
+{{- end }}
+
+{{/*
+Create a yarn cluster conf volumeMount.
+*/}}
+{{- define "dolphinscheduler.yarnClusterConf.volumeMount" -}}
+{{- if .Values.yarnClusterConf.enabled }}
+- mountPath: {{ .Values.yarnClusterConf.hadoopConfDir | quote }}
+  name: {{ include "dolphinscheduler.fullname" . }}-yarn-cluster-conf
+{{- end }}
+{{- end }}
+
+{{/*
 Renders a value that contains template.
 Usage:
 {{ include "dolphinscheduler.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $) }}
