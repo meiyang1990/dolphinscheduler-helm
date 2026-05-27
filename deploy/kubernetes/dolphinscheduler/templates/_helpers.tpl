@@ -417,6 +417,27 @@ Create a yarn cluster conf volumeMount.
 {{- end }}
 
 {{/*
+Create a sts conf volume.
+*/}}
+{{- define "dolphinscheduler.stsConf.volume" -}}
+{{- if .Values.stsConf.enabled }}
+- name: {{ include "dolphinscheduler.fullname" . }}-sts-conf
+  configMap:
+    name: {{ include "dolphinscheduler.fullname" . }}-sts-conf
+{{- end }}
+{{- end }}
+
+{{/*
+Create a sts conf volumeMount.
+*/}}
+{{- define "dolphinscheduler.stsConf.volumeMount" -}}
+{{- if .Values.stsConf.enabled }}
+- mountPath: {{ .Values.stsConf.stsConfDir | quote }}
+  name: {{ include "dolphinscheduler.fullname" . }}-sts-conf
+{{- end }}
+{{- end }}
+
+{{/*
 Renders a value that contains template.
 Usage:
 {{ include "dolphinscheduler.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $) }}

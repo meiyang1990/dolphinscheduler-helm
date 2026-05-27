@@ -229,7 +229,7 @@ Wait for database to be ready.
 - name: wait-for-database
   image: {{ .Values.initImage.busybox }}
   imagePullPolicy: {{ .Values.initImage.pullPolicy }}
-  command: ['sh', '-c', 'exit 0']
+  command: ['sh', '-xc', 'echo "Skip database connectivity check" && exit 0']
 {{- end -}}
 
 {{/*
@@ -394,6 +394,48 @@ Create a ldap ssl volumeMount.
   subPath: jks-file
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create a yarn cluster conf volume.
+*/}}
+{{- define "dolphinscheduler.yarnClusterConf.volume" -}}
+{{- if .Values.yarnClusterConf.enabled }}
+- name: {{ include "dolphinscheduler.fullname" . }}-yarn-cluster-conf
+  configMap:
+    name: {{ include "dolphinscheduler.fullname" . }}-yarn-cluster-conf
+{{- end }}
+{{- end }}
+
+{{/*
+Create a yarn cluster conf volumeMount.
+*/}}
+{{- define "dolphinscheduler.yarnClusterConf.volumeMount" -}}
+{{- if .Values.yarnClusterConf.enabled }}
+- mountPath: {{ .Values.yarnClusterConf.hadoopConfDir | quote }}
+  name: {{ include "dolphinscheduler.fullname" . }}-yarn-cluster-conf
+{{- end }}
+{{- end }}
+
+{{/*
+Create a sts conf volume.
+*/}}
+{{- define "dolphinscheduler.stsConf.volume" -}}
+{{- if .Values.stsConf.enabled }}
+- name: {{ include "dolphinscheduler.fullname" . }}-sts-conf
+  configMap:
+    name: {{ include "dolphinscheduler.fullname" . }}-sts-conf
+{{- end }}
+{{- end }}
+
+{{/*
+Create a sts conf volumeMount.
+*/}}
+{{- define "dolphinscheduler.stsConf.volumeMount" -}}
+{{- if .Values.stsConf.enabled }}
+- mountPath: {{ .Values.stsConf.stsConfDir | quote }}
+  name: {{ include "dolphinscheduler.fullname" . }}-sts-conf
+{{- end }}
+{{- end }}
 
 {{/*
 Renders a value that contains template.

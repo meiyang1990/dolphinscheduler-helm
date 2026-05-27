@@ -21,107 +21,107 @@
 
     <property>
       <name>yarn.resourcemanager.hostname.rm1</name>
-      <value>master-03ff3a1-1</value>
+      <value>192.168.16.204</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.address.rm1</name>
-      <value>master-03ff3a1-1:8050</value>
+      <value>192.168.16.204:8050</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.scheduler.address.rm1</name>
-      <value>master-03ff3a1-1:8030</value>
+      <value>192.168.16.204:8030</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.resource-tracker.address.rm1</name>
-      <value>master-03ff3a1-1:8025</value>
+      <value>192.168.16.204:8025</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.admin.address.rm1</name>
-      <value>master-03ff3a1-1:8141</value>
+      <value>192.168.16.204:8141</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.webapp.address.rm1</name>
-      <value>master-03ff3a1-1:8088</value>
+      <value>192.168.16.204:8088</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.webapp.https.address.rm1</name>
-      <value>master-03ff3a1-1:8090</value>
+      <value>192.168.16.204:8090</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.hostname.rm2</name>
-      <value>master-03ff3a1-2</value>
+      <value>192.168.16.209</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.address.rm2</name>
-      <value>master-03ff3a1-2:8050</value>
+      <value>192.168.16.209:8050</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.scheduler.address.rm2</name>
-      <value>master-03ff3a1-2:8030</value>
+      <value>192.168.16.209:8030</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.resource-tracker.address.rm2</name>
-      <value>master-03ff3a1-2:8025</value>
+      <value>192.168.16.209:8025</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.admin.address.rm2</name>
-      <value>master-03ff3a1-2:8141</value>
+      <value>192.168.16.209:8141</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.webapp.address.rm2</name>
-      <value>master-03ff3a1-2:8088</value>
+      <value>192.168.16.209:8088</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.webapp.https.address.rm2</name>
-      <value>master-03ff3a1-2:8090</value>
+      <value>192.168.16.209:8090</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.hostname.rm3</name>
-      <value>master-03ff3a1-3</value>
+      <value>192.168.16.208</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.address.rm3</name>
-      <value>master-03ff3a1-3:8050</value>
+      <value>192.168.16.208:8050</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.scheduler.address.rm3</name>
-      <value>master-03ff3a1-3:8030</value>
+      <value>192.168.16.208:8030</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.resource-tracker.address.rm3</name>
-      <value>master-03ff3a1-3:8025</value>
+      <value>192.168.16.208:8025</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.admin.address.rm3</name>
-      <value>master-03ff3a1-3:8141</value>
+      <value>192.168.16.208:8141</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.webapp.address.rm3</name>
-      <value>master-03ff3a1-3:8088</value>
+      <value>192.168.16.208:8088</value>
     </property>
 
     <property>
       <name>yarn.resourcemanager.webapp.https.address.rm3</name>
-      <value>master-03ff3a1-3:8090</value>
+      <value>192.168.16.208:8090</value>
     </property>
 
     <property>
@@ -136,28 +136,28 @@
 
     <property>
       <name>hadoop.registry.zk.quorum</name>
-      <value>master-03ff3a1-1:2181,master-03ff3a1-2:2181,master-03ff3a1-3:2181</value>
+      <value>192.168.16.204:2181,192.168.16.209:2181,192.168.16.208:2181</value>
     </property>
 
     <!--timeline related-->
     <property>
       <name>yarn.timeline-service.address</name>
-      <value>master-03ff3a1-3:10200</value>
+      <value>192.168.16.208:10200</value>
     </property>
 
     <property>
       <name>yarn.timeline-service.webapp.address</name>
-      <value>master-03ff3a1-3:8188</value>
+      <value>192.168.16.208:8188</value>
     </property>
 
     <property>
         <name>yarn.log.server.url</name>
-        <value>http://master-03ff3a1-3:8122/jobhistory/logs</value>
+        <value>http://192.168.16.208:8122/jobhistory/logs</value>
     </property>
 
     <property>
         <name>yarn.log.server.web-service.url</name>
-        <value>http://master-03ff3a1-3:8188/ws/v1/applicationhistory</value>
+        <value>http://192.168.16.208:8188/ws/v1/applicationhistory</value>
     </property>
     
     
@@ -175,7 +175,7 @@
     
     <property>
       <name>hadoop.zk.address</name>
-      <value>master-03ff3a1-1:2181,master-03ff3a1-2:2181,master-03ff3a1-3:2181</value>
+      <value>192.168.16.204:2181,192.168.16.209:2181,192.168.16.208:2181</value>
     </property>
 
 

@@ -1,0 +1,6 @@
+kubectl cp yarn-site.xml bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/hadoop/etc/hadoop/ -n bigdata
+
+kubectl cp core-site.xml bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/hadoop/etc/hadoop/ -n bigdata
+
+
+kubectl cp bmr-sts-client-2.1.1.jar bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/spark/jars/ -n bigdata

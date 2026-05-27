@@ -381,6 +381,13 @@ conf:
     # -- way to collect applicationId: log, aop
     appId.collect: log
 
+# -- STS (Security Token Service) configuration for BMR cluster authentication
+stsConf:
+  # -- Enable or disable the STS configuration mount
+  enabled: true
+  # -- The STS config directory path inside the container where STS config files will be mounted
+  stsConfDir: "/etc/sts/conf"
+
 common:
   ## Configmap
   configmap:

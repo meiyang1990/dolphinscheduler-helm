@@ -412,7 +412,14 @@ yarnClusterConf:
   # -- Enable or disable the YARN cluster configuration mount
   enabled: true
   # -- The HADOOP_CONF_DIR path inside the container where YARN config files will be mounted
-  hadoopConfDir: "/opt/soft/hadoop/etc/hadoop"
+  hadoopConfDir: "/data/dolphinscheduler/soft/hadoop/etc/hadoop"
+
+# -- STS (Security Token Service) configuration for BMR cluster authentication
+stsConf:
+  # -- Enable or disable the STS configuration mount
+  enabled: true
+  # -- The STS config directory path inside the container where STS config files will be mounted
+  stsConfDir: "/etc/sts/conf"
 
 common:
   ## Configmap
@@ -429,21 +436,21 @@ common:
 
     # dolphinscheduler env
     # -- Set `HADOOP_HOME` for DolphinScheduler's task environment
-    HADOOP_HOME: "/opt/soft/hadoop"
+    HADOOP_HOME: "/data/dolphinscheduler/soft/hadoop"
     # -- Set `HADOOP_CONF_DIR` for DolphinScheduler's task environment
-    HADOOP_CONF_DIR: "/opt/soft/hadoop/etc/hadoop"
+    HADOOP_CONF_DIR: "/data/dolphinscheduler/soft/hadoop/etc/hadoop"
     # -- Set `SPARK_HOME` for DolphinScheduler's task environment
-    SPARK_HOME: "/opt/soft/spark"
+    SPARK_HOME: "/data/dolphinscheduler/soft/spark"
     # -- Set `PYTHON_LAUNCHER` for DolphinScheduler's task environment
     PYTHON_LAUNCHER: "/usr/local/bin/python3.11"
     # -- Set `JAVA_HOME` for DolphinScheduler's task environment
     JAVA_HOME: "/opt/java/openjdk"
     # -- Set `HIVE_HOME` for DolphinScheduler's task environment
-    HIVE_HOME: "/opt/soft/hive"
+    HIVE_HOME: "/data/dolphinscheduler/soft/hive"
     # -- Set `FLINK_HOME` for DolphinScheduler's task environment
-    FLINK_HOME: "/opt/soft/flink"
+    FLINK_HOME: "/data/dolphinscheduler/soft/flink"
     # -- Set `DATAX_LAUNCHER` for DolphinScheduler's task environment
-    DATAX_LAUNCHER: "/opt/soft/datax/bin/datax.py"
+    DATAX_LAUNCHER: "/data/dolphinscheduler/soft/datax/bin/datax.py"
     # -- Whether to enable management endpoints security: false, true
     MANAGEMENT_SECURITY_ENABLED: false
     # -- management endpoints security username
