@@ -407,11 +407,12 @@ conf:
     # -- way to collect applicationId: log, aop
     appId.collect: log
 
-# -- YARN cluster configuration for submitting Spark tasks to BMR on CCE cluster
+# -- YARN/Hive cluster configuration for submitting Spark tasks to BMR on CCE cluster.
+# -- The XML files under HADOOP_CONF_DIR are expected to be uploaded to CFS manually.
 yarnClusterConf:
-  # -- Enable or disable the YARN cluster configuration mount
-  enabled: true
-  # -- The HADOOP_CONF_DIR path inside the container where YARN config files will be mounted
+  # -- Disable ConfigMap mounting and read configs directly from the pre-uploaded CFS directory
+  enabled: false
+  # -- The HADOOP_CONF_DIR path inside the container where the manually uploaded config files are located
   hadoopConfDir: "/data/dolphinscheduler/soft/hadoop/etc/hadoop"
 
 # -- STS (Security Token Service) configuration for BMR cluster authentication
@@ -532,7 +533,7 @@ master:
     # -- Turn on and off liveness probe
     enabled: true
     # -- Delay before liveness probe is initiated
-    initialDelaySeconds: "30"
+    initialDelaySeconds: "100"
     # -- How often to perform the probe
     periodSeconds: "30"
     # -- When the probe times out
@@ -1038,7 +1039,7 @@ api:
     storage: "20Gi"
   service:
     # -- type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer
-    type: "LoadBalancer"
+    type: "ClusterIP"
     # --  clusterIP is the IP address of the service and is usually assigned randomly by the master
     clusterIP: ""
     # -- nodePort is the port on each node on which this api service is exposed when type=NodePort
@@ -1050,11 +1051,10 @@ api:
     # -- externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service, requires Type to be ExternalName
     externalName: ""
     # -- loadBalancerIP when service.type is LoadBalancer. LoadBalancer will get created with the IP specified in this field
-    loadBalancerIP: "180.76.52.98"
+    loadBalancerIP: ""
     # -- annotations may need to be set when service.type is LoadBalancer
     # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:EXAMPLE_CERT
-    annotations:
-      service.beta.kubernetes.io/cce-load-balancer-eip-address: "180.76.52.98"
+    annotations: {}
     # -- serviceMonitor for prometheus operator
     serviceMonitor:
       # -- Enable or disable api-server serviceMonitor
