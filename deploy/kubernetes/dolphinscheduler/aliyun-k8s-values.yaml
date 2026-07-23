@@ -37,7 +37,7 @@ image:
   # -- Image pull policy. Options: Always, Never, IfNotPresent
   pullPolicy: "Always"
   # -- Specify a imagePullSecrets
-  pullSecret: "storm-ccr-pull-image-secret"
+  pullSecret: ""
   # -- master image
   master: dolphinscheduler-master-with-plugin
   # -- worker image
@@ -77,8 +77,6 @@ postgresql:
     registry: ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler
     repository: postgresql
     tag: 11.11.0
-    pullSecrets:
-      - storm-ccr-pull-image-secret
 
 mysql:
   # -- If not exists external MySQL, by default, the DolphinScheduler will use a internal MySQL
@@ -106,8 +104,6 @@ mysql:
     registry: ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler
     repository: mysql
     tag: 8.0.31-debian-11-r0
-    pullSecrets:
-      - storm-ccr-pull-image-secret
 
 minio:
   # -- Deploy minio and configure it as the default storage for DolphinScheduler, note this is for demo only, not for production.
@@ -131,8 +127,6 @@ minio:
     repository: minio
     tag: 2022.10.29-debian-11-r0
     pullPolicy: Always
-    pullSecrets:
-      - storm-ccr-pull-image-secret
 
 
 externalDatabase:
@@ -142,7 +136,7 @@ externalDatabase:
   # -- The type of external database, supported types: postgresql, mysql
   type: "postgresql"
   # -- The host of external database
-  host: "192.168.48.2"
+  host: "pgm-2ze018200m73425d.pg.rds.aliyuncs.com"
   # -- The port of external database
   port: "5432"
   # -- The username of external database
@@ -179,15 +173,13 @@ zookeeper:
     enabled: true
     # -- PersistentVolumeClaim size
     size: "20Gi"
-    # -- ZooKeeper data persistent volume storage class. If set to "-", storageClassName: "", which disables dynamic provisioning
-    storageClass: "-"
+    # -- ZooKeeper data persistent volume storage class. Use alicloud-disk-essd for dynamic provisioning on ACK
+    storageClass: "alicloud-disk-essd"
   image:
     registry: ccr-2owfeef4-pub.cnc.bj.baidubce.com/scheduler
     repository: zookeeper
     tag: 3.8.4
     pullPolicy: "Always"
-    pullSecrets:
-      - storm-ccr-pull-image-secret
 
 registryEtcd:
   # -- If you want to use Etcd for your registry center, change this value to true. And set zookeeper.enabled to false
@@ -466,7 +458,7 @@ common:
     mountPath: "/data/dolphinscheduler"
     accessModes:
       - "ReadWriteMany"
-    storageClassName: "cfs-shared-sc"
+    storageClassName: "alicloud-nas-extreme-rwx"
     storage: "50Gi"
   ## If RESOURCE_STORAGE_TYPE is HDFS and FS_DEFAULT_FS is file:///, fsFileResourcePersistence should be enabled for resource storage
   fsFileResourcePersistence:
