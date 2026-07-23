@@ -1,8 +1,8 @@
 .git
 .svn
 .hg
-.zip
-.gz
+*.zip
+*.gz
 .DS_Store
 .target
 .idea/

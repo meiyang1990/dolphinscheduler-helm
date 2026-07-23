@@ -1,6 +1,11 @@
+kubectl cp spark-3.5.3-bin-hadoop3.zip bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/ -n bigdata
+
 kubectl cp yarn-site.xml bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/hadoop/etc/hadoop/ -n bigdata
 
 kubectl cp core-site.xml bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/hadoop/etc/hadoop/ -n bigdata
 
+kubectl cp hive-site.xml bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/hadoop/etc/hadoop/ -n bigdata
 
-kubectl cp bmr-sts-client-2.1.1.jar bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/spark/jars/ -n bigdata
+kubectl cp spark-defaults.conf bigdata/dolphinscheduler-worker-0:/data/dolphinscheduler/soft/spark/conf/ -n bigdata
+
+

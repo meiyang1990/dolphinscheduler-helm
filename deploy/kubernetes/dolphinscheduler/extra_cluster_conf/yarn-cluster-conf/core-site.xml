@@ -1,309 +1,433 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-<!--
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License. See accompanying LICENSE file.
--->
-
+<?xml version="1.0" ?>
+<!-- Created at 2026-03-13 14:48:13.780 -->
 <configuration>
     <property>
-      <name>bos.use.proxy.user.enabled</name>
-      <value>true</value>
+        <name>hadoop.http.authentication.kerberos.keytab</name>
+        <value>/etc/emr/hadoop-conf/http.keytab</value>
     </property>
-
     <property>
-      <name>fs.bos.work.scenarios</name>
-      <value>bmr</value>
+        <name>fs.oss.tmp.data.dirs</name>
+        <value>/tmp/</value>
     </property>
-
     <property>
-      <name>fs.bos.credentials.provider.class</name>
-      <value>org.apache.hadoop.fs.bos.credentials.StsServerCredentialsProvider</value>
+        <name>fs.jindocache.client.metrics.enable</name>
+        <value>true</value>
     </property>
-
     <property>
-      <name>hadoop.http.staticuser.user</name>
-      <value>yarn</value>
+        <name>hadoop.security.auth_to_local</name>
+        <value>
+            RULE:[1:$1]
+            RULE:[2:$1]
+            DEFAULT
+            
+        </value>
     </property>
-
     <property>
-      <name>fs.bos.impl</name>
-      <value>org.apache.hadoop.fs.bos.BaiduBosFileSystem</value>
+        <name>hadoop.proxyuser.presto.hosts</name>
+        <value>*</value>
     </property>
-    
     <property>
-      <name>ha.zookeeper.quorum</name>
-      <value>master-03ff3a1-1:2181,master-03ff3a1-2:2181,master-03ff3a1-3:2181</value>
+        <name>fs.jdo.metrics.level</name>
+        <value>2</value>
     </property>
-    
     <property>
-        <name>fs.defaultFS</name>
-        <value>bos://lakehouse/</value>
+        <name>hadoop.proxyuser.impala.hosts</name>
+        <value>*</value>
     </property>
-    
-    
     <property>
-      <name>hadoop.security.authentication</name>
-      <value>simple</value>
+        <name>fs.df.interval</name>
+        <value>60000</value>
     </property>
-
     <property>
-      <name>hadoop.security.authorization</name>
-      <value>false</value>
+        <name>ipc.client.connection.maxidletime</name>
+        <value>10000</value>
     </property>
-    
-    <!-- config proxyuser related -->
     <property>
-      <name>hadoop.proxyuser.hue.hosts</name>
-      <value>*</value>
+        <name>fs.jdo.metrics.file.dir</name>
+        <value>/tmp/metrics</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.hue.groups</name>
-      <value>*</value>
+        <name>fs.jindo.impl</name>
+        <value>com.aliyun.jindodata.jindo.JindoFileSystem</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.iceberg.hosts</name>
-      <value>*</value>
+        <name>hadoop.registry.zk.session.timeout.ms</name>
+        <value>60000</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.iceberg.groups</name>
-      <value>*</value>
+        <name>hadoop.proxyuser.spark.hosts</name>
+        <value>*</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.hdfs.hosts</name>
-      <value>*</value>
+        <name>ha.zookeeper.parent-znode</name>
+        <value>/hadoop-ha</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.hdfs.groups</name>
-      <value>*</value>
+        <name>hadoop.proxyuser.spark.groups</name>
+        <value>*</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.flink.hosts</name>
-      <value>*</value>
+        <name>hadoop.util.hash.type</name>
+        <value>murmur</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.flink.groups</name>
-      <value>*</value>
+        <name>hadoop.proxyuser.kyuubi.groups</name>
+        <value>*</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.mapred.hosts</name>
-      <value>*</value>
+        <name>io.seqfile.local.dir</name>
+        <value>${hadoop.tmp.dir}/io/local</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.mapred.groups</name>
-      <value>*</value>
+        <name>fs.dls.endpoint</name>
+        <value>cn-beijing.dls.aliyuncs.com</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.hive.hosts</name>
-      <value>*</value>
+        <name>fs.dls.impl</name>
+        <value>com.aliyun.jindodata.dls.JindoDlsFileSystem</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.hive.groups</name>
-      <value>*</value>
+        <name>fs.oss.upload.thread.concurrency</name>
+        <value>32</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.zookeeper.hosts</name>
-      <value>*</value>
+        <name>fs.AbstractFileSystem.hdfs.impl</name>
+        <value>org.apache.hadoop.fs.Hdfs</value>
     </property>
-
     <property>
-      <name>hadoop.proxyuser.zookeeper.groups</name>
-      <value>*</value>
+        <name>mapreduce.input.fileinputformat.split.opencost</name>
+        <value>4194304</value>
     </property>
-    
     <property>
-      <name>hadoop.proxyuser.prometheus.hosts</name>
-      <value>*</value>
+        <name>ha.zookeeper.quorum</name>
+        <value>master-1-1.c-84d8c7562b8007ea.cn-beijing.emr.aliyuncs.com:2181,master-1-2.c-84d8c7562b8007ea.cn-beijing.emr.aliyuncs.com:2181,master-1-3.c-84d8c7562b8007ea.cn-beijing.emr.aliyuncs.com:2181</value>
     </property>
-
-    <property>
-      <name>hadoop.proxyuser.prometheus.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-      <name>hadoop.proxyuser.hdfs.hosts</name>
-      <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.hdfs.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-      <name>hadoop.proxyuser.yarn.hosts</name>
-      <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.yarn.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-      <name>hadoop.proxyuser.paimon.hosts</name>
-      <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.paimon.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-      <name>hadoop.proxyuser.tez.hosts</name>
-      <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.tez.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-      <name>hadoop.proxyuser.spark.hosts</name>
-      <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.spark.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-      <name>hadoop.proxyuser.sts.hosts</name>
-      <value>*</value>
-    </property>
-
-    <property>
-      <name>hadoop.proxyuser.sts.groups</name>
-      <value>*</value>
-    </property>
-    
-    <property>
-        <name>fs.trash.interval</name>
-        <value>360</value>
-    </property>
-    
-    <property>
-        <name>hadoop.http.staticuser.user</name>
-        <value>yarn</value>
-    </property>
-    
     <property>
         <name>hadoop.http.filter.initializers</name>
         <value>org.apache.hadoop.http.lib.StaticUserWebFilter</value>
     </property>
-    
     <property>
-        <name>io.compression.codecs</name>
-        <value>org.apache.hadoop.io.compress.GzipCodec,
-                org.apache.hadoop.io.compress.DefaultCodec,
-                org.apache.hadoop.io.compress.SnappyCodec,
-                com.hadoop.compression.lzo.LzoCodec,
-                com.hadoop.compression.lzo.LzopCodec,
-                org.apache.hadoop.io.compress.BZip2Codec</value>
-    </property>
-    
-    <property>
-        <name>fs.bos.endpoint</name>
-        <value>http://bj.bcebos.com</value>
-    </property>
-    
-    <property>
-        <name>hadoop.http.cross-origin.allowed-headers</name>
-        <value>X-Requested-With,Content-Type,Accept,Origin,WWW-Authenticate,Accept-Encoding,Transfer-Encoding</value>
-    </property>
-    
-    <property>
-        <name>hadoop.http.authentication.simple.anonymous.allowed</name>
-        <value>True</value>
-    </property>
-    
-    <property>
-        <name>fs.AbstractFileSystem.bos.impl</name>
-        <value>org.apache.hadoop.fs.bos.BaiduBosFileSystemAdapter</value>
-    </property>
-    
-    <property>
-        <name>hadoop.security.instrumentation.requires.admin</name>
-        <value>False</value>
-    </property>
-    
-    <property>
-        <name>io.file.buffer.size</name>
-        <value>131072</value>
-    </property>
-    
-    <property>
-        <name>hadoop.http.cross-origin.allowed-origins</name>
-        <value>*</value>
-    </property>
-    
-    <property>
-        <name>fs.AbstractFileSystem.file.impl</name>
-        <value>org.apache.hadoop.fs.local.LocalFs</value>
-    </property>
-    
-    <property>
-        <name>hadoop.http.cross-origin.allowed-methods</name>
-        <value>GET,PUT,POST,OPTIONS,HEAD,DELETE</value>
-    </property>
-    
-    <property>
-        <name>rapidfs.data.cache.dir</name>
-        <value>/mnt/bmr/rapidfs/client/cache</value>
-    </property>
-    
-    <property>
-        <name>fs.rapidfs.impl</name>
-        <value>com.baidu.bce.bmr.rapidfs.RapidFileSystemImpl</value>
-    </property>
-    
-    <property>
-        <name>rapidfs.debug.mode</name>
-        <value>false</value>
-    </property>
-    
-    <property>
-        <name>rapidfs.log.path</name>
-        <value>/mnt/bmr/rapidfs/client/log</value>
-    </property>
-    
-    <property>
-        <name>rapidfs.data.cache.size</name>
-        <value>50000000000</value>
-    </property>
-    
-    <property>
-        <name>rapidfs.master.address</name>
-        <value>localhost:7110</value>
+        <name>io.serializations</name>
+        <value>org.apache.hadoop.io.serializer.WritableSerialization,org.apache.hadoop.io.serializer.avro.AvroSpecificSerialization,org.apache.hadoop.io.serializer.avro.AvroReflectSerialization</value>
     </property>
     <property>
         <name>ipc.client.rpc-timeout.ms</name>
         <value>120000</value>
     </property>
-     
+    <property>
+        <name>fs.jdo.metrics.file.pid.enable</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>fs.jdo.metrics.file.enable</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hdfs.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.knox.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>io.bytes.per.checksum</name>
+        <value>512</value>
+    </property>
+    <property>
+        <name>dfs.namenode.delegation.token.max-lifetime</name>
+        <value>25920000000</value>
+    </property>
+    <property>
+        <name>fs.trash.interval</name>
+        <value>1440</value>
+    </property>
+    <property>
+        <name>fs.oss.signer.version</name>
+        <value>0</value>
+    </property>
+    <property>
+        <name>ipc.client.kill.max</name>
+        <value>10</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.knox.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>fs.oss.read.readahead.prefetch.size.max</name>
+        <value>268435456</value>
+    </property>
+    <property>
+        <name>ipc.client.connect.max.retries.on.timeouts</name>
+        <value>45</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hbase.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>fs.oss.upload.max.pending.tasks.per.stream</name>
+        <value>10</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hive.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>fs.jindocache.storage.connect.enable</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>fs.oss.memory.buffer.size.watermark</name>
+        <value>0.3</value>
+    </property>
+    <property>
+        <name>fs.xengine</name>
+        <value></value>
+    </property>
+    <property>
+        <name>fs.oss.read.readahead.prefetcher.version</name>
+        <value>default</value>
+    </property>
+    <property>
+        <name>fs.oss.batch.job.list-directory.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>ipc.client.connect.max.retries</name>
+        <value>10</value>
+    </property>
+    <property>
+        <name>fs.AbstractFileSystem.jindo.impl</name>
+        <value>com.aliyun.jindodata.jindo.JINDO</value>
+    </property>
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>4096</value>
+    </property>
+    <property>
+        <name>fs.AbstractFileSystem.oss.impl</name>
+        <value>com.aliyun.jindodata.oss.OSS</value>
+    </property>
+    <property>
+        <name>fs.dls.region</name>
+        <value>cn-beijing</value>
+    </property>
+    <property>
+        <name>fs.hdfs.impl</name>
+        <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+    </property>
+    <property>
+        <name>io.mapfile.bloom.size</name>
+        <value>1048576</value>
+    </property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/mnt/disk1/hadoop/tmp</value>
+    </property>
+    <property>
+        <name>ipc.client.connect.retry.interval</name>
+        <value>1000</value>
+    </property>
+    <property>
+        <name>hadoop.registry.zk.connection.timeout.ms</name>
+        <value>15000</value>
+    </property>
+    <property>
+        <name>fs.oss.batch.job.get-file-info.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>fs.oss.endpoint</name>
+        <value>oss-cn-beijing-internal.aliyuncs.com</value>
+    </property>
+    <property>
+        <name>fs.oss.batch.job.get-content-summary.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>fs.oss.idle.timeout.millisecond</name>
+        <value>30000</value>
+    </property>
+    <property>
+        <name>fs.oss.retry.count</name>
+        <value>5</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.kyuubi.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>ipc.client.idlethreshold</name>
+        <value>4000</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hadoop.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>file.blocksize</name>
+        <value>67108864</value>
+    </property>
+    <property>
+        <name>fs.jindocache.namespace.rpc.address</name>
+        <value>master-1-1:8101,master-1-2:8101,master-1-3:8101</value>
+    </property>
+    <property>
+        <name>fs.oss.upload.queue.size</name>
+        <value>16</value>
+    </property>
+    <property>
+        <name>fs.trash.checkpoint.interval</name>
+        <value>30</value>
+    </property>
+    <property>
+        <name>fs.oss.memory.buffer.size.max.mb</name>
+        <value>6144</value>
+    </property>
+    <property>
+        <name>fs.oss.timeout.millisecond</name>
+        <value>30000</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.simple.anonymous.allowed</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hadoop.security.authorization</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>ha.health-monitor.check-interval.ms</name>
+        <value>1000</value>
+    </property>
+    <property>
+        <name>fs.dls.credentials.provider</name>
+        <value>com.aliyun.jindodata.dls.auth.SimpleCredentialsProvider,com.aliyun.jindodata.dls.auth.EnvironmentVariableCredentialsProvider,com.aliyun.jindodata.dls.auth.CommonCredentialsProvider,com.aliyun.jindodata.dls.auth.EcsStsCredentialsProvider</value>
+    </property>
+    <property>
+        <name>ipc.client.connect.timeout</name>
+        <value>20000</value>
+    </property>
+    <property>
+        <name>hadoop.security.authentication</name>
+        <value>simple</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hdfs.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>file.replication</name>
+        <value>1</value>
+    </property>
+    <property>
+        <name>fs.AbstractFileSystem.dls.impl</name>
+        <value>com.aliyun.jindodata.dls.DLS</value>
+    </property>
+    <property>
+        <name>fs.du.interval</name>
+        <value>600000</value>
+    </property>
+    <property>
+        <name>io.compression.codecs</name>
+        <value>org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.BZip2Codec,org.apache.hadoop.io.compress.DeflateCodec,org.apache.hadoop.io.compress.SnappyCodec,org.apache.hadoop.io.compress.Lz4Codec</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hive.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>oss://emr-cluster-oss-hdfs.cn-beijing.oss-dls.aliyuncs.com/</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.impala.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.registry.zk.quorum</name>
+        <value>localhost:2181</value>
+    </property>
+    <property>
+        <name>fs.jdo.metrics.file.number</name>
+        <value>3</value>
+    </property>
+    <property>
+        <name>fs.jindocache.tmp.data.dirs</name>
+        <value>/tmp/</value>
+    </property>
+    <property>
+        <name>fs.oss.impl</name>
+        <value>com.aliyun.jindodata.oss.JindoOssFileSystem</value>
+    </property>
+    <property>
+        <name>fs.oss.connection.timeout.millisecond</name>
+        <value>3000</value>
+    </property>
+    <property>
+        <name>ha.failover-controller.new-active.rpc-timeout.ms</name>
+        <value>60000</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.type</name>
+        <value>simple</value>
+    </property>
+    <property>
+        <name>fs.oss.vectored.read.max.merged.size</name>
+        <value>8388608</value>
+    </property>
+    <property>
+        <name>hadoop.caller.context.enabled</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.kerberos.principal</name>
+        <value></value>
+    </property>
+    <property>
+        <name>fs.jdo.metrics.file.conf.dir</name>
+        <value>/etc/taihao-apps/jindosdk-conf</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.livy.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hbase.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>io.seqfile.compress.blocksize</name>
+        <value>1000000</value>
+    </property>
+    <property>
+        <name>fs.oss.user.agent.extended</name>
+        <value>DATALAKE/c-84d8c7562b8007ea</value>
+    </property>
+    <property>
+        <name>fs.oss.credentials.provider</name>
+        <value>com.aliyun.jindodata.oss.auth.SimpleCredentialsProvider,com.aliyun.jindodata.oss.auth.EnvironmentVariableCredentialsProvider,com.aliyun.jindodata.oss.auth.CommonCredentialsProvider,com.aliyun.jindodata.oss.auth.EcsStsCredentialsProvider</value>
+    </property>
+    <property>
+        <name>ipc.server.log.slow.rpc</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>ha.zookeeper.session-timeout.ms</name>
+        <value>60000</value>
+    </property>
+    <property>
+        <name>fs.permissions.umask-mode</name>
+        <value>026</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.hadoop.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>fs.oss.download.thread.concurrency</name>
+        <value>64</value>
+    </property>
 </configuration>
