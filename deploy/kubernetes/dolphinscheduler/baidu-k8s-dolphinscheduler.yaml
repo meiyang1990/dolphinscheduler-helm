@@ -673,7 +673,7 @@ worker:
   updateStrategy:
     type: RollingUpdate
   # -- Replicas is the desired number of replicas of the given Template.
-  replicas: "1"
+  replicas: "2"
   # -- You can use annotations to attach arbitrary non-identifying metadata to objects.
   # Clients such as tools and libraries can retrieve this metadata.
   annotations: {}
@@ -691,11 +691,11 @@ worker:
   # More info: [manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
   resources:
     limits:
-      memory: "8Gi"
+      memory: "16Gi"
       cpu: "4"
     requests:
-      memory: "2Gi"
-      cpu: "500m"
+      memory: "8Gi"
+      cpu: "2"
 
   # -- Periodic probe of container liveness. Container will be restarted if the probe fails.
   # More info: [container-probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
@@ -779,7 +779,7 @@ worker:
     # -- Worker max disk usage , when the worker's disk usage is smaller then this value, worker server can be dispatched tasks.
     WORKER_SERVER_LOAD_PROTECTION_MAX_DISK_USAGE_PERCENTAGE_THRESHOLDS: 0.7
     # -- Worker execute thread number to limit task instances
-    WORKER_EXEC_THREADS: "100"
+    WORKER_EXEC_THREADS: "5"
     # -- Worker heartbeat interval
     WORKER_MAX_HEARTBEAT_INTERVAL: "10s"
     # -- Worker host weight to dispatch tasks
